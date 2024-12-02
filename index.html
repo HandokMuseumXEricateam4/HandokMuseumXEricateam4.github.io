@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+  <title>KimProject</title>
+  <style>
+    body {
+        padding: 0px;
+        background: whitesmoke;
+    }
+    button.animate {
+        animation: grow-and-move 0.6s forwards ease-in-out;
+    }
+    button  {
+        position: relative;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-family: "Nanum Gothic Coding", monospace;
+        font-weight: 600;
+        text-decoration: none;
+        text-align:center;
+        background-color: #e1eef6;
+        color: black;
+    }
+    button:active {
+        transform: scale(0.95);
+        color:gray;
+    }
+
+    @keyframes grow-and-move {
+        0% {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-20px);
+            opacity: 0;
+        }
+    }
+    .container {
+      display: flex;
+      justify-content: center; /* 가로로 중앙 정렬 */
+      align-items: center; /* 세로로 중앙 정렬 */
+      height: 10px;
+    }
+    .form-step {
+        display: none;
+    }
+    .form-step.active {
+      display: flex;          /* Flexbox 활성화 */ 
+      flex-direction: column; /* 요소들 세로로 배치 */
+      justify-content: center;/* 세로 방향 가운데 정렬 */
+      align-items: center;
+    }
+    #form-step-buttons {
+      display: flex;
+      justify-content: space-between; /* 양쪽 끝에 배치 */
+      gap: 10px; /* 버튼 사이 간격 */
+      margin-top: 20px;
+    }
+    .w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    font-size: 10pt;
+    transition: 0.25s;
+    width: 80%;
+    height: auto;
+    background-color: #395EB0;
+    color: #e1eef6;
+    margin:1px;
+    }
+    .w-btn:hover {
+    letter-spacing: 1px;
+    transform: scale(1.05);
+    cursor: pointer;
+    }
+    .cimg {
+      width: 80%;
+      height: auto;
+    }
+    #text-area {
+        display: flex;
+        justify-content: center; /* 가로 가운데 정렬 */
+        align-items: center; /* 세로 가운데 정렬 */
+        font-family: "Nanum Gothic Coding", monospace;
+        font-weight: 400;
+        font-style: normal;
+        font-size: 13pt;
+        height: 30px;
+        text-align: center;
+    }
+
+    #progress {
+        position: absolute;
+        margin-bottom: 17px;
+        appearance: none;
+        width: 80%;
+        height: 5px;
+      }
+      
+      #progress::-webkit-progress-bar {
+        background: #f0f0f0;
+        border-radius: 12px;
+        border: 1px solid #eeeeee;
+        overflow: hidden;
+      }
+
+      #progress::-webkit-progress-value {
+        background: #395EB0;
+        border-radius: 0px;
+      }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <progress
+      class="progress"
+      id="progress"
+      value="0"
+      min="0"
+      max="5"
+    ></progress>
+    <div id="prgStatus"></div>
+  </div>
+  <br>
+  <form id="multiStepForm">
+    <h2 className="text-2xl font-bold text-center mb-8 text-indigo-600" style="text-align: center; margin:1px">
+      나와 닮은 의학자는 누구일까요? 🔬
+    </h2>
+    <div class="form-step active">
+        <br><br>
+        <button type="button" class="w-btn" id="nextStep">테스트 시작!</button>
+    </div>
+  
+    <form id="form-step">
+    <!-- Step 1 -->
+    <div class="form-step">
+        <div id="text-area">Q1. 친구가 무릎을 다쳤어요!</div>
+        <div id="text-area" style="font-size:13pt">어떻게 할까요?</div>
+        <img class="cimg" src="./images/q1.png">
+        
+        <button type="button" class="w-btn" id="option">평소에 밴드와 연고를 가방에 준비해뒀어요. 제가 직접 치료해줄 수 있어요!</button>
+        <button type="button" class="w-btn" id="option2">어서 보건실 선생님께 모시고 가야겠어요. 전문가의 도움을 받는 게 좋겠어요!</button>
+        
+    </div>
+
+    <!-- Step 2 -->
+    <div class="form-step">
+      <div id="text-area">Q2. 보건 선생님께서 응급처치를 가르쳐주신대요.</div>
+      <div id="text-area" style="font-size:13pt">어떤 마음이 드나요?</div>
+      <img class="cimg" src="./images/q2.png">
+      
+      <button type="button" class="w-btn" id="option">정확한 방법을 배워서 언제든 도움이 필요할 때 써보고 싶어요!</button>
+      <button type="button" class="w-btn" id="option2">친구들과 함께 연습해보면서 서로 도울 수 있는 방법을 익히고 싶어요!</button><br>
+      <div id="form-step-buttons">
+        <button type="button" id="prevStep">이전</button>
+      </div>
+    </div>
+  
+
+    <!-- Step 3 -->
+    <div class="form-step">
+      <div id="text-area">Q3. 의약박물관에 가게 되었어요.</div>
+      <div id="text-area" style="font-size:13pt">무엇을 하고 싶나요?</div>
+      <img class="cimg" src="./images/q3.png">
+      
+      <button type="button" class="w-btn" id="option">옛날부터 지금까지 사용했던 의료기구들을 자세히 관찰하고 직접 체험해보고 싶어요!</button>
+      <button type="button" class="w-btn" id="option2">재미있는 의학 이야기를 많이 배워서 친구들에게도 알려주고 함께 이야기 나누고 싶어요!</button><br>
+
+      <div id="form-step-buttons">
+        <button type="button" id="prevStep">이전</button>
+      </div>
+    </div>
+
+  <!-- Step 4 -->
+  <div class="form-step">
+    <div id="text-area">Q4. 친구가 감기에 걸렸다고 해요.</div>
+    <div id="text-area" style="font-size:13pt">어떻게 하고 싶나요?</div>
+    <img class="cimg" src="./images/q4.png">
+    
+    <button type="button" class="w-btn" id="option">감기를 더 빨리 낫게 하는 방법을 찾아보고 알려주고 싶어요!</button>
+    <button type="button" class="w-btn" id="option2">따뜻한 차도 타주고, 옆에서 이야기도 들어주며 돌봐주고 싶어요!</button><br>
+
+    <div id="form-step-buttons">
+      <button type="button" id="prevStep">이전</button>
+    </div>
+  </div>
+
+<!-- Step 5 -->
+<div class="form-step">
+  <div id="text-area">Q5. 나중에 커서 의사가 된다면</div>
+  <div id="text-area" style="font-size:13pt">어떤 의사가 되고 싶나요?</div>
+  <img class="cimg" src="./images/q5.png">
+  
+  <button type="button" class="w-btn" id="option">새로운 치료 방법을 연구하고 발견하는 의사가 되고 싶어요!</button>
+  <button type="button" class="w-btn" id="option2">어려운 사람들을 찾아다니며 도와주는 의사가 되고 싶어요!</button><br>
+
+  <div id="form-step-buttons">
+    <button type="button" id="prevStep">이전</button>
+    <button type="button" id="submit">제출</button>
+  </div>
+</div>
+</form>
+
+<div id="result-container">
+  
+</div>
+<div id="link" style="display:none; text-align: center; background-color: #e1eef6">
+  <div className="text-sm text-gray-600 space-y-2">
+    <p>🔍 의학자와 관련된 더 자세한 정보가 궁금하다면?</p>
+    <a
+      href="https://www.handokmuseum.com/?&utm_source=hyadpr&utm_medium=digitalmedia&utm_campaign=team4"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-indigo-600 hover:underline block"
+    >
+      한독의약박물관 방문하기
+    </a>
+    <br>
+    <a
+      href="https://www.instagram.com/i_can_doyak?igsh=MWFyOGNkNHZxZHBwdA=="
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-indigo-600 hover:underline block"
+    >
+      <img src="./images/instagram.png" width="20px" height="20px"/>인스타그램에서 더 알아보기
+    </a>
+</div>
+  <script>
+    var answer={};
+    const steps = document.querySelectorAll('.form-step');
+    const progressBar = document.querySelector('progress');
+    const prgStatus = document.getElementById('prgStatus')
+    let currentStep = 0;
+    let resultOption=0;
+
+    function showStep(stepIndex) {
+      steps.forEach((step, index) => {
+        step.classList.toggle('active', index === stepIndex);
+      });
+      prgStatus.innerText=`${currentStep}/5`;
+    }
+    
+    function animateButton(button, callback) {
+        button.classList.add('animate'); // 애니메이션 시작
+        button.addEventListener('animationend', () => {
+        button.classList.remove('animate'); // 애니메이션 종료 후 제거
+        callback(); // 콜백 함수 실행 (폼 변경)
+        }, { once: true }); // 한번만 실행
+    }
+    document.querySelectorAll('#option').forEach(button => {
+      button.addEventListener('click', (event) => {
+        answer[currentStep]=event.target.id;
+        if (currentStep < steps.length - 1) {
+            animateButton(button, ()=>{
+                currentStep++
+                showStep(currentStep);
+                progressBar.value=currentStep;
+            });
+        }
+      });
+    });
+    document.querySelectorAll('#option2').forEach(button => {
+      button.addEventListener('click', (event) => {
+        answer[currentStep]=event.target.id;
+        if (currentStep < steps.length - 1) {
+            animateButton(button, ()=>{
+                currentStep++
+                showStep(currentStep);
+                progressBar.value=currentStep;
+            });
+        }
+      });
+    });
+    document.querySelectorAll('#nextStep').forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentStep < steps.length - 1) {
+            currentStep++
+            showStep(currentStep);
+            progressBar.value=currentStep;
+        }
+      });
+    });
+    document.querySelectorAll('#prevStep').forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+            progressBar.value=currentStep;        
+        }
+      });
+    });
+    function createResult(category) {
+      const resultContainer = document.getElementById('result-container');
+
+      // 전체 컨테이너
+      const resultDiv = document.createElement('div');
+      resultDiv.classList.add('bg-indigo-50', 'p-6', 'rounded-lg');
+      
+      // 제목
+      const titleContainer = document.createElement('div');
+      titleContainer.classList.add('flex', 'flex-col', 'items-center','justify-center', 'mb-4');
+      titleContainer.style="text-align:center";
+
+      const title = document.createElement('h3');
+      title.classList.add('text-xl', 'font-bold', 'text-indigo-600');
+      title.textContent = `${results[category].title}`;
+      const title2 = document.createElement('h3');
+      title2.classList.add('text-xl', 'font-bold', 'text-indigo-600',);
+      title2.textContent = `'${results[category].type}'유형 입니다!`;
+      titleContainer.appendChild(title);
+      titleContainer.appendChild(title2);
+      const img = document.createElement('img');
+
+
+      const centeredImg = document.createElement('div');
+      centeredImg.style="text-align: center";
+      // 속성 설정
+      img.src = `./images/${category}.png`; // 이미지 경로
+      img.alt = 'Placeholder Image'; // 대체 텍스트
+      img.classList.add('rounded', 'shadow-lg'); // 클래스 추가 (Tailwind 예제)
+      img.style.width = '80%'; // 스타일 속성
+      img.style.height = 'auto'; // 스타일 속성
+      img.classList.add('center-image');
+      centeredImg.appendChild(img);
+      // 본문 내용
+      const contentDiv = document.createElement('div');
+      contentDiv.classList.add('space-y-4');
+      
+      // 특별한 점 제목
+      const specialTitle = document.createElement('h4');
+      specialTitle.classList.add('font-semibold');
+      specialTitle.textContent = '✨ 특별한 점';
+      
+      // 목록
+      const list = document.createElement('ul');
+      list.classList.add('list-disc', 'pl-5', 'space-y-2', 'text-lm');
+      const points = [
+       results[category].traits[0],
+       results[category].traits[1],
+       results[category].traits[2]
+      ];
+      points.forEach(point => {
+        const listItem = document.createElement('li');
+        listItem.textContent = point;
+        list.appendChild(listItem);
+      });
+      
+      // 어떤 분이셨나요? 제목
+      const whoTitle = document.createElement('h4');
+      whoTitle.classList.add('font-semibold', 'mt-4', 'text-lm');
+      whoTitle.textContent = '🌟 어떤 분이셨나요?';
+      
+      // 텍스트 내용
+      const paragraph = document.createElement('p');
+      paragraph.classList.add('text-gray-700');
+      paragraph.textContent=results[category].description;
+
+      //다시하기 버튼
+      const centeredButton = document.createElement('div');
+      centeredButton.style="text-align: center";
+      const onemore = document.createElement('button');
+      onemore.onclick=function(){window.location.reload()};
+      onemore.textContent="다시 시작하기";
+      centeredButton.appendChild(onemore);
+      // 구성 요소들을 합침
+      contentDiv.appendChild(specialTitle);
+      contentDiv.appendChild(list);
+      contentDiv.appendChild(whoTitle);
+      contentDiv.appendChild(paragraph);
+      
+      resultDiv.appendChild(titleContainer);
+      resultDiv.appendChild(centeredImg);
+      resultDiv.appendChild(contentDiv);
+      resultDiv.appendChild(centeredButton);
+      resultContainer.appendChild(resultDiv);
+    }
+    const results = {
+  "AAAAA": {
+    type: "알렉산더 플레밍",
+    title: "새로운 발견의 천재",
+    traits: [
+      "관찰력이 뛰어나고 호기심이 많아요",
+      "실수도 새로운 발견의 기회로 만들어요",
+      "조용히 연구하는 것을 좋아해요"
+    ],
+    description: "1881년 스코틀랜드에서 태어난 플레밍 박사님은 우연히 페니실린이라는 중요한 약을 발견했어요. 이 덕분에 많은 사람들의 생명을 구할 수 있게 되었답니다!"
+  },
+  "AAABB": {
+    type: "파스퇴르",
+    title: "열정적인 실험가",
+    traits: [
+      "끊임없이 실험하고 연구하는 것을 좋아해요",
+      "발견한 것을 다른 사람들과 나누는 걸 좋아해요",
+      "질병을 예방하는 방법을 찾아냈어요"
+    ],
+    description: "1822년 프랑스에서 태어난 파스퇴르 박사님은 세균을 연구해서 질병을 예방하는 방법을 발견했어요. 우유를 안전하게 마실 수 있는 '살균법'도 만들었답니다!"
+  },
+  "AABBB": {
+    type: "이제마",
+    title: "체질 연구의 대가",
+    traits: [
+      "사람마다 다른 특징을 잘 살펴봐요",
+      "깊이 생각하고 연구하는 것을 좋아해요",
+      "새로운 치료 방법을 찾아냈어요"
+    ],
+    description: "조선시대(1837-1900)의 이제마 선생님은 사람마다 다른 체질이 있다는 것을 발견했어요. 각각의 체질에 맞는 치료법을 찾아내어 많은 사람들을 도왔답니다!"
+  },
+  "ABBBB": {
+    type: "슈바이처",
+    title: "따뜻한 마음의 봉사자",
+    traits: [
+      "다른 사람을 돕는 것을 가장 좋아해요",
+      "어려운 사람들을 찾아가서 치료해줘요",
+      "평화로운 세상을 만들기 위해 노력해요"
+    ],
+    description: "1875년 독일에서 태어난 슈바이처 박사님은 아프리카 오지에서 병원을 세워 가난한 사람들을 치료했어요. 평화를 위해 노력한 공로로 노벨평화상도 받았답니다!"
+  },
+  "BBBBB": {
+    type: "허준",
+    title: "백성을 생각하는 의사",
+    traits: [
+      "실제 경험을 바탕으로 아픈 사람을 잘 치료해요",
+      "누구나 쉽게 이해할 수 있게 설명하는 것을 좋아해요",
+      "가난한 사람들도 치료받을 수 있도록 노력했어요"
+    ],
+    description: "조선시대(1539-1615)의 허준 선생님은 왕실의 의관이 되어 많은 사람들을 치료했어요. 특히 '동의보감'이라는 책을 써서 좋은 치료법을 많은 사람들에게 알려주었답니다!"
+  }
+  };  
+    document.querySelectorAll('#submit').forEach(button => {
+      button.addEventListener('click', () => {
+        check=1;
+        for (let i=1; i<6; i++) {
+          if (answer[i]==undefined) {
+            alert(i+"번 항목을 선택해주세요")
+            check=0;
+            break;
+          }
+        }
+        if (check) {
+          let cnt=0;
+          for (let i=1; i<6; i++) {
+            if (answer[i]=="option") cnt++;
+          }
+          console.log(answer);
+          let category="";
+          console.log(category);
+          if (cnt==0) category="BBBBB";
+          if (cnt==1) category="ABBBB";
+          if (cnt==2) category="AABBB";
+          if (cnt==3) category="AAABB";
+          if (cnt==4) category="BBBBB";
+          if (cnt==5) category="AAAAA";
+          
+          progressBar.remove();
+          prgStatus.remove();
+          showStep(currentStep+1);
+          document.getElementById('link').style.display = 'block';
+          createResult(category);
+        }  
+    });
+    });
+  </script>
+</body>
+</html>
